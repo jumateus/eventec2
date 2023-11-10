@@ -1,11 +1,15 @@
- 	// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventec_firebase/view/config_view.dart';
+import 'package:eventec_firebase/view/inserir_evento_view.dart';
+import 'package:eventec_firebase/view/listar_eventos_view.dart';
+import 'package:eventec_firebase/view/sobre_view.dart';
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../controller/login_controller.dart';
-import '../controller/tarefa_controller.dart';
-import '../model/tarefa.dart';
+import '../controller/evento_controller.dart';
+import '../model/evento.dart';
 
 class PrincipalView extends StatefulWidget {
   const PrincipalView({super.key});
@@ -24,7 +28,7 @@ class _PrincipalViewState extends State<PrincipalView> {
       appBar: AppBar(
         title: Row(
           children: [
-            Expanded(child: Text('Tarefas')),
+            Expanded(child: Text('Menu Principal')),
             FutureBuilder<String>(
               future: LoginController().usuarioLogado(),
               builder: (context, snapshot) {
@@ -53,133 +57,35 @@ class _PrincipalViewState extends State<PrincipalView> {
       ),
 
       // BODY
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: TarefaController().listar().snapshots(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Center(
-                  child: Text('Não foi possível conectar.'),
-                );
-              case ConnectionState.waiting:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              default:
-                final dados = snapshot.requireData;
-                if (dados.size > 0) {
-                  return ListView.builder(
-                    itemCount: dados.size,
-                    itemBuilder: (context, index) {
-                      String id = dados.docs[index].id;
-                      dynamic item = dados.docs[index].data();
-                      return Card(
-                        child: ListTile(
-                          leading: Icon(Icons.description),
-                          title: Text(item['titulo']),
-                          subtitle: Text(item['descricao']),
-                          onTap: () {
-                            txtTitulo.text = item['titulo'];
-                            txtDescricao.text = item['descricao'];
-                            salvarTarefa(context, docId: id);
-                          },
-                          onLongPress: () {
-                            TarefaController().excluir(context, id);
-                          },
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return Center(
-                    child: Text('Nenhuma tarefa encontrada.'),
-                  );
-                }
-            }
-          },
+      body: Center(
+        child: GridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 16.0,
+          crossAxisSpacing: 16.0,
+          padding: EdgeInsets.all(16.0),
+          childAspectRatio: 1.0,
+          children: [
+            buildIconButton(context, Icons.settings, Colors.brown, ConfigView()),
+            buildIconButton(context, Icons.event, Colors.red, ListarEventosView()),
+            buildIconButton(context, Icons.list, Colors.blueAccent, InserirEventoView()),
+            buildIconButton(context, Icons.info, Colors.indigo, SobreView()),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          salvarTarefa(context);
-        },
-        child: Icon(Icons.add),
       ),
     );
   }
 
-  //
-  // ADICIONAR TAREFA
-  //
-  void salvarTarefa(context, {docId}) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // retorna um objeto do tipo Dialog
-        return AlertDialog(
-          title: Text("Adicionar Tarefa"),
-          content: SizedBox(
-            height: 250,
-            width: 300,
-            child: Column(
-              children: [
-                TextField(
-                  controller: txtTitulo,
-                  decoration: InputDecoration(
-                    labelText: 'Título',
-                    prefixIcon: Icon(Icons.description),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                TextField(
-                  controller: txtDescricao,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    labelText: 'Descrição',
-                    alignLabelWithHint: true,
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actionsPadding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-          actions: [
-            TextButton(
-              child: Text("fechar"),
-              onPressed: () {
-                txtTitulo.clear();
-                txtDescricao.clear();
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              child: Text("salvar"),
-              onPressed: () {
-                var t = Tarefa(
-                  LoginController().idUsuario(),
-                  txtTitulo.text,
-                  txtDescricao.text,
-                );
-                txtTitulo.clear();
-                txtDescricao.clear();
-                if (docId == null) {
-                  //
-                  // ADICIONAR TAREFA
-                  //
-                  TarefaController().adicionar(context, t);
-                } else {
-                  //
-                  // ATUALIZAR TAREFA
-                  //
-                  TarefaController().atualizar(context, docId, t);
-                }
-              },
-            ),
-          ],
+  Widget buildIconButton(BuildContext context, IconData iconData, Color iconColor, Widget destinationScreen) {
+    return IconButton(
+      icon: Icon(
+        iconData,
+        size: 50.0,
+        color: iconColor,
+      ),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destinationScreen),
         );
       },
     );

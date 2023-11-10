@@ -1,4 +1,8 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:eventec_firebase/view/config_view.dart';
+import 'package:eventec_firebase/view/inserir_evento_view.dart';
+import 'package:eventec_firebase/view/listar_eventos_view.dart';
+import 'package:eventec_firebase/view/sobre_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +27,10 @@ Future<void> main() async {
           'cadastrar': (context) => const CadastrarView(),
           'login': (context) => const LoginView(),
           'principal': (context) => const PrincipalView(),
+          'configurar usuário' :(context) => ConfigView(),
+          'inserir evento' :(context) => InserirEventoView(),
+          'listar evento' :(context) => ListarEventosView(),
+          'sobre' :(context) => SobreView(),
         },
       ),
     ),
