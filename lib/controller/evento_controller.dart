@@ -3,25 +3,23 @@ import 'package:flutter/material.dart';
 
 import '../model/evento.dart';
 import '../view/util.dart';
-import 'login_controller.dart';
+//import 'login_controller.dart';
 
 class EventoController {
-  //
-  // ADICIONAR uma nova Tarefa
-  //
-  void adicionar(context, Evento e) {
-    FirebaseFirestore.instance
-        .collection('eventos')
-        .add(e.toJson())
-        .then((value) => sucesso(context, 'Evento adicionado com sucesso'))
-        .catchError(
-            (e) => erro(context, 'Não foi possível adicionar o evento.'))
-        .whenComplete(() => Navigator.pop(context));
-  }
 
-  //
-  // ATUALIZAR
-  //
+  void adicionar(context, Evento e) {
+  FirebaseFirestore.instance
+    .collection('eventos')
+    .add(e.toJson())
+    .then((value) => sucesso(context, 'Evento adicionado com sucesso'))
+    .catchError((e) => erro(context, 'Não foi possível adicionar o evento.'))
+    .whenComplete(() {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        Navigator.pop(context);
+      });
+    });
+}
+
   void atualizar(context, id, Evento e) {
     FirebaseFirestore.instance
         .collection('eventos')
@@ -33,24 +31,32 @@ class EventoController {
         .whenComplete(() => Navigator.pop(context));
   }
 
-  //
-  // EXCLUIR
-  //
-  void excluir(context, id) {
-    FirebaseFirestore.instance
-        .collection('eventos')
-        .doc(id)
-        .delete()
-        .then((value) => sucesso(context, 'Evento excluído com sucesso'))
-        .catchError((e) => erro(context, 'Não foi possível excluir o evento.'));
-  }
+void excluir(context, id, String idUsuarioLogado) {
+  FirebaseFirestore.instance
+      .collection('eventos')
+      .doc(id)
+      .get()
+      .then((evento) {
+        if (evento.exists && evento['uid'] == idUsuarioLogado) {
+          // O evento foi criado pelo usuário logado, pode ser excluído
+          FirebaseFirestore.instance
+              .collection('eventos')
+              .doc(id)
+              .delete()
+              .then((value) => sucesso(context, 'Evento excluído com sucesso'))
+              .catchError((e) => erro(context, 'Não foi possível excluir o evento.'));
+        } else {
+          // O evento não foi criado pelo usuário logado, exiba uma mensagem ou faça algo apropriado
+          erro(context, 'Você não tem permissão para excluir este evento.');
+        }
+      })
+      .catchError((e) => erro(context, 'Não foi possível verificar o evento.'));
+}
 
-  //
-  // LISTAR todas as Tarefas da coleção
-  //
+
   listar() {
     return FirebaseFirestore.instance
-        .collection('eventos')
-        .where('uid', isEqualTo: LoginController().idUsuario());
+        .collection('eventos');
+        //.where('uid', isEqualTo: LoginController().idUsuario());
   }
 }

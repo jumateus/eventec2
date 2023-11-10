@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eventec_firebase/controller/evento_controller.dart';
+import 'package:eventec_firebase/controller/login_controller.dart';
 import 'package:eventec_firebase/view/inserir_evento_view.dart';
 import 'package:flutter/material.dart';
 
@@ -53,12 +54,13 @@ class ListarEventosView extends StatelessWidget {
                             ],
                           ),
                           onTap: () {
-                            txtTitulo.text = item['titulo'];
-                            txtDescricao.text = item['descricao'];
-                            salvarEvento(context, docId: id);
+                            //txtTitulo.text = item['titulo'];
+                            //txtDescricao.text = item['descricao'];
+                            //salvarEvento(context, docId: id);
                           },
                           onLongPress: () {
-                            EventoController().excluir(context, id);
+                            String idUsuarioLogado = LoginController().idUsuario(); // Obtenha o ID do usuário logado
+                            EventoController().excluir(context, id, idUsuarioLogado);
                           },
                         ),
                       );
