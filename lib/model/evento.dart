@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Evento {
   final String uid;
+  final String uidUsuario;
   final String titulo;
   final String descricao;
   DateTime data;
@@ -9,19 +10,21 @@ class Evento {
   String local;
   bool eventoPago;
 
-  Evento(
-    this.uid,
-    this.titulo,
-    this.descricao,
-    this.data,
-    this.horario,
-    this.local,
-    this.eventoPago,
-  );
+  Evento({
+    required this.uid,
+    required this.uidUsuario,
+    required this.titulo,
+    required this.descricao,
+    required this.data,
+    required this.horario,
+    required this.local,
+    required this.eventoPago,
+  });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'uid': uid,
+      'uidUsuario': uidUsuario,
       'titulo': titulo,
       'descricao': descricao,
       'data': data.toIso8601String(),
@@ -33,13 +36,14 @@ class Evento {
 
   factory Evento.fromJson(Map<String, dynamic> json) {
     return Evento(
-      json['uid'],
-      json['titulo'],
-      json['descricao'],
-      DateTime.parse(json['data']),
-      _parseHorario(json['horario']),
-      json['local'],
-      json['eventoPago'],
+      uid: json['uid'],
+      uidUsuario: json['uidUsuario'],
+      titulo: json['titulo'],
+      descricao: json['descricao'],
+      data: DateTime.parse(json['data']),
+      horario: _parseHorario(json['horario']),
+      local: json['local'],
+      eventoPago: json['eventoPago'],
     );
   }
 

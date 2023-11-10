@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eventec_firebase/controller/evento_controller.dart';
 import 'package:eventec_firebase/controller/login_controller.dart';
-import 'package:eventec_firebase/view/inserir_evento_view.dart';
+import 'package:eventec_firebase/view/edicao_evento_view.dart';
 import 'package:flutter/material.dart';
 
 class ListarEventosView extends StatelessWidget {
@@ -54,9 +54,13 @@ class ListarEventosView extends StatelessWidget {
                             ],
                           ),
                           onTap: () {
-                            //txtTitulo.text = item['titulo'];
-                            //txtDescricao.text = item['descricao'];
-                            //salvarEvento(context, docId: id);
+                            String uidUsuarioLogado = LoginController().idUsuario();  // Assumindo que LoginController tem um método idUsuario() que retorna o uid
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditarEventoView(idEvento: id, uidUsuarioLogado: uidUsuarioLogado),
+                              ),
+                            );
                           },
                           onLongPress: () {
                             String idUsuarioLogado = LoginController().idUsuario(); // Obtenha o ID do usuário logado

@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCHzVpYo_ovT6cC9GfGB8l0pzMg_sSeG9M',
-    appId: '1:207072574847:web:11970c6e96daa4450d2e4a',
-    messagingSenderId: '207072574847',
-    projectId: 'eventec-firebase',
-    authDomain: 'eventec-firebase.firebaseapp.com',
-    storageBucket: 'eventec-firebase.appspot.com',
+    apiKey: 'AIzaSyCeYOaqrsERZqcCeR1lhdVt3TkCNaVOqyA',
+    appId: '1:592880124586:web:7d8a4cfde05f0761c4c6d3',
+    messagingSenderId: '592880124586',
+    projectId: 'eventec-3bf83',
+    authDomain: 'eventec-3bf83.firebaseapp.com',
+    storageBucket: 'eventec-3bf83.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBzgtLQpvj8sjcxbQ9p75x0NOAHnloKSLw',
-    appId: '1:207072574847:android:21c81cb52ce1c4e90d2e4a',
-    messagingSenderId: '207072574847',
-    projectId: 'eventec-firebase',
-    storageBucket: 'eventec-firebase.appspot.com',
+    apiKey: 'AIzaSyCjY79DwRan7_Xt6K0evLEj303FkQS8lSg',
+    appId: '1:592880124586:android:75b6b799d082bba6c4c6d3',
+    messagingSenderId: '592880124586',
+    projectId: 'eventec-3bf83',
+    storageBucket: 'eventec-3bf83.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC8i6bpeOCAwJ-jo62m1vQh6_p0lgtJE-w',
-    appId: '1:207072574847:ios:344020660837bf680d2e4a',
-    messagingSenderId: '207072574847',
-    projectId: 'eventec-firebase',
-    storageBucket: 'eventec-firebase.appspot.com',
+    apiKey: 'AIzaSyBDjZpBqdxiBKYcgWtjxk-bSJ8XR-IS3g0',
+    appId: '1:592880124586:ios:4ac78fe42f6ddeb3c4c6d3',
+    messagingSenderId: '592880124586',
+    projectId: 'eventec-3bf83',
+    storageBucket: 'eventec-3bf83.appspot.com',
     iosBundleId: 'com.example.eventecFirebase',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC8i6bpeOCAwJ-jo62m1vQh6_p0lgtJE-w',
-    appId: '1:207072574847:ios:fcd7d4408488bc5f0d2e4a',
-    messagingSenderId: '207072574847',
-    projectId: 'eventec-firebase',
-    storageBucket: 'eventec-firebase.appspot.com',
+    apiKey: 'AIzaSyBDjZpBqdxiBKYcgWtjxk-bSJ8XR-IS3g0',
+    appId: '1:592880124586:ios:38eebdc24a39d185c4c6d3',
+    messagingSenderId: '592880124586',
+    projectId: 'eventec-3bf83',
+    storageBucket: 'eventec-3bf83.appspot.com',
     iosBundleId: 'com.example.eventecFirebase.RunnerTests',
   );
 }

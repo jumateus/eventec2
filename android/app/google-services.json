@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "207072574847",
-    "project_id": "eventec-firebase",
-    "storage_bucket": "eventec-firebase.appspot.com"
+    "project_number": "592880124586",
+    "project_id": "eventec-3bf83",
+    "storage_bucket": "eventec-3bf83.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:207072574847:android:21c81cb52ce1c4e90d2e4a",
+        "mobilesdk_app_id": "1:592880124586:android:75b6b799d082bba6c4c6d3",
         "android_client_info": {
           "package_name": "com.example.eventec_firebase"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBzgtLQpvj8sjcxbQ9p75x0NOAHnloKSLw"
+          "current_key": "AIzaSyCjY79DwRan7_Xt6K0evLEj303FkQS8lSg"
         }
       ],
       "services": {
