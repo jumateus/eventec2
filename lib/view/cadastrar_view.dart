@@ -1,14 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
-
 import '../controller/login_controller.dart';
 
 class CadastrarView extends StatefulWidget {
-  const CadastrarView({super.key});
+  const CadastrarView({Key? key}) : super(key: key);
 
   @override
-  State<CadastrarView> createState() => _CadastrarViewState();
+  _CadastrarViewState createState() => _CadastrarViewState();
 }
 
 class _CadastrarViewState extends State<CadastrarView> {
@@ -17,60 +14,42 @@ class _CadastrarViewState extends State<CadastrarView> {
   var txtSenha = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Cadastro de Usuário'),
+      ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 50, 30, 50),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Criar Conta',
-              style: TextStyle(fontSize: 60),
-            ),
-            SizedBox(height: 60),
+            SizedBox(height: 20),
             TextField(
               controller: txtNome,
               decoration: InputDecoration(
-                  labelText: 'Nome',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder()),
+                labelText: 'Nome',
+              ),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             TextField(
               controller: txtEmail,
               decoration: InputDecoration(
-                  labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder()),
+                labelText: 'Email',
+              ),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             TextField(
               controller: txtSenha,
               obscureText: true,
               decoration: InputDecoration(
-                  labelText: 'Senha',
-                  prefixIcon: Icon(Icons.password),
-                  border: OutlineInputBorder()),
+                labelText: 'Senha',
+              ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('cancelar'),
-                ),
                 ElevatedButton(
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(140, 40),
-                  ),
                   onPressed: () {
                     LoginController().criarConta(
                       context,
@@ -79,11 +58,17 @@ class _CadastrarViewState extends State<CadastrarView> {
                       txtSenha.text,
                     );
                   },
-                  child: Text('salvar'),
+                  child: Text('Salvar'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancelar'),
                 ),
               ],
             ),
-            SizedBox(height: 40),
           ],
         ),
       ),
