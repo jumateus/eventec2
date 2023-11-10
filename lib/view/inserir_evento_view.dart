@@ -1,6 +1,7 @@
 import 'package:eventec_firebase/controller/evento_controller.dart';
 import 'package:eventec_firebase/controller/login_controller.dart';
 import 'package:eventec_firebase/model/evento.dart';
+import 'package:eventec_firebase/view/util.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -139,35 +140,25 @@ void salvarEvento(context,
     bool? eventoPago}) async {
   try {
     var e = Evento(
-      LoginController().idUsuario(),
-      tituloEvento ?? '',
-      descricaoEvento ?? '',
-      dataEvento ?? DateTime.now(),
-      horarioEvento ?? TimeOfDay.now(),
-      localEvento ?? '',
-      eventoPago ?? false,
+      uid: LoginController().idUsuario(),
+      uidUsuario: LoginController().idUsuario(),
+      titulo: tituloEvento ?? '',
+      descricao: descricaoEvento ?? '',
+      data: dataEvento ?? DateTime.now(),
+      horario: horarioEvento ?? TimeOfDay.now(),
+      local: localEvento ?? '',
+      eventoPago: eventoPago ?? false,
     );
 
     if (docId == null) {
       EventoController().adicionar(context, e);
-      _mostrarSnackBar(context, 'Evento adicionado com sucesso');
+      sucesso(context, 'Evento adicionado com sucesso');
     } else {
-       EventoController().atualizar(context, docId, e);
-      _mostrarSnackBar(context, 'Evento atualizado com sucesso');
+      erro(context, 'Não foi possível adicionar novo evento, porque ele já existe.');
     }
 
     Navigator.of(context).pop();
   } catch (e) {
-    _mostrarSnackBar(context, 'Erro ao salvar o evento');
+    erro(context, 'Erro ao salvar o evento: $e');
   }
 }
-
-void _mostrarSnackBar(BuildContext context, String mensagem) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(mensagem),
-      duration: Duration(seconds: 2),
-    ),
-  );
-}
-
