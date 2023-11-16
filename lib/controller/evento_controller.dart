@@ -16,7 +16,7 @@ class EventoController {
     .then((value) => sucesso(context, 'Evento adicionado com sucesso'))
     .catchError((e) => erro(context, 'Não foi possível adicionar o evento.'))
     .whenComplete(() {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pop(context);
       });
     });

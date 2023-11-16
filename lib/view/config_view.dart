@@ -12,6 +12,7 @@ class ConfigView extends StatefulWidget {
 }
 
 class _ConfigViewState extends State<ConfigView> {
+  TextEditingController _nomedeusuarioController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -19,13 +20,18 @@ class _ConfigViewState extends State<ConfigView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Alterar E-mail ou Senha'),
+        title: Text('Alterações de Login'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            TextField(
+              controller: _nomedeusuarioController,
+              decoration: InputDecoration(labelText: 'Nome de Usuário'),
+            ),
+            SizedBox(height: 16.0),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(labelText: 'Email'),
@@ -60,12 +66,14 @@ class _ConfigViewState extends State<ConfigView> {
     );
   }
 
-  void _saveChanges(BuildContext context) {
+ void _saveChanges(BuildContext context) {
+    String nomeUsuario = _nomedeusuarioController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
-      _showDialog('Campos vazios', 'Por favor, preencha todos os campos.');
+    // Verifica se pelo menos um campo foi preenchido
+    if (nomeUsuario.isEmpty && email.isEmpty && password.isEmpty) {
+      _showDialog('Campos vazios', 'Pelo menos um campo deve ser preenchido.');
     } else {
       // Salvar alterações (pode ser uma chamada de API, salvar em um banco de dados, etc.)
 
