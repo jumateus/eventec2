@@ -154,17 +154,8 @@ void salvarEvento(context,
       EventoController().adicionar(context, e);
       sucesso(context, 'Evento adicionado com sucesso');
     } else {
-      // Obtenha o evento existente do Firestore para verificar o UID do usuário
-      Evento eventoExistente = await EventoController().carregarDetalhesEvento(docId, LoginController().idUsuario());
-
-      if (eventoExistente.uidUsuario == LoginController().idUsuario()) {
-        // O usuário logado é o criador do evento, permita a edição
-        EventoController().atualizar(context, docId, e.toJson() as String);
-        sucesso(context, 'Evento atualizado com sucesso');
-      } else {
-        // O usuário logado não é o criador do evento, não permita a edição
-        erro(context, 'Você não tem permissão para editar este evento.');
-      }
+       EventoController().atualizar(context, docId, e);
+      _mostrarSnackBar(context, 'Evento atualizado com sucesso');
     }
 
     Navigator.of(context).pop();
