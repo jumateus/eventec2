@@ -154,7 +154,7 @@ void salvarEvento(context,
       EventoController().adicionar(context, e);
       sucesso(context, 'Evento adicionado com sucesso');
     } else {
-       EventoController().atualizar(context, docId, e);
+       EventoController().atualizar(context, docId, e as String);
       _mostrarSnackBar(context, 'Evento atualizado com sucesso');
     }
 
@@ -162,4 +162,8 @@ void salvarEvento(context,
   } catch (e) {
     erro(context, 'Erro ao salvar o evento: $e');
   }
+}
+
+class _mostrarSnackBar {
+  _mostrarSnackBar(context, String s);
 }
