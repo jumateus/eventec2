@@ -94,11 +94,11 @@ class _PrincipalViewState extends State<PrincipalView> {
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
-          buildImageCard('Increva-se já para o vestibular da FATEC de Ribeirão Preto! As inscrições vão até 12/12, compartilhe o máximo que puder!', 'assets/imagem1.jpg'),
+          buildImageCard('Increva-se já para o vestibular da FATEC de Ribeirão Preto! As inscrições vão até 12/12, compartilhe o máximo que puder!', 'assets/vestibular.png'),
           SizedBox(height: 20.0),
-          buildImageCard('Huuuum, 2024 vai nos trazer um novo curso! Que tal saber mais sobre esse curso? Venha conhecer!', 'imagem2.jpg'),
+          buildImageCard('Huuuum, 2024 vai nos trazer um novo curso! Que tal saber mais sobre esse curso? Venha conhecer!', 'assets/novocurso.png'),
           SizedBox(height: 20.0),
-          buildImageCard('Alunos de todos os cursos e todos os semestres...Já responderam o Websai?\nAinda não? Não perca tempo, responda o quanto antes, ajuda muito!', 'assets/imagem3.jpg'),
+          buildImageCard('Alunos de todos os cursos e todos os semestres...Já responderam o Websai?\nAinda não? Não perca tempo, responda o quanto antes, ajuda muito!', 'assets/websai.png'),
         ],
       ),
     );
@@ -116,8 +116,8 @@ class _PrincipalViewState extends State<PrincipalView> {
             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
             child: Image.asset(
               imagePath,
-              fit: BoxFit.cover,
-              height: 200.0,
+              fit: BoxFit.fitWidth,
+              height: 100.0,
               width: double.infinity,
             ),
           ),

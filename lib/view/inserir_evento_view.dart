@@ -163,7 +163,3 @@ void salvarEvento(context,
     erro(context, 'Erro ao salvar o evento: $e');
   }
 }
-
-class _mostrarSnackBar {
-  _mostrarSnackBar(context, String s);
-}
